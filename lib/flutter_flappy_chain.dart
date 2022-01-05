@@ -9,45 +9,45 @@ class FlutterFlappyChain {
   //channel
   static const MethodChannel _channel = MethodChannel('flutter_flappy_chain');
 
-  //生成一个助记词
+  //cerate aide
   static Future<List<String>?> ethCreateAideMemory(strength) async {
     String seed = bip39.generateMnemonic(strength: strength);
     return seed.toString().split(" ");
   }
 
-  //拿到私钥
+  //get aide wallet
   static Future<String?> ethCreateWalletByAide(List<String> aide, String path) async {
-    //转换为Seed
+    //seed
     String seed = bip39.mnemonicToSeedHex(aide.join(" "));
-    //转换为chain
+    //chain
     Chain chain = Chain.seed(seed);
-    //地址
+    //key
     ExtendedKey key = chain.forPath(path);
-    //获得私钥
+    //get private key
     return "0x" + key.privateKeyHex().substring(2, key.privateKeyHex().length);
   }
 
-  //创建钱包
+  //create wallet
   static Future<String?> ethCreateWallet(String path) async {
-    //随机生成助记词
+    //get aides
     List<String>? data = await ethCreateAideMemory(256);
-    //生成私钥
+    //get privateKey
     String? privateKey = await ethCreateWalletByAide(data!, path);
-    //私钥
+    //privateKey
     return privateKey;
   }
 
-  //获取以太坊千百的地址
+  //get wallet address
   static Future<String?> ethGetWalletAddress(String privateKey) async {
-    //通过私钥拿到地址信息
+    //get private key
     EthPrivateKey private = EthPrivateKey.fromHex(privateKey);
-    //地址
+    //address
     EthereumAddress address = await private.extractAddress();
-    //返回
+    //Keccak256 EIP55 address
     return Keccak256.ethEIP55Address(address.hex);
   }
 
-  //获取钱包的私钥
+  //private key
   static Future<String?> ethGetWalletPrivateKey(String path) async {
     final String? key = await _channel.invokeMethod('ethGetWalletPrivateKey', {"path": path});
     return key;
