@@ -24,10 +24,7 @@ public class FlutterFlappyChainPlugin implements FlutterPlugin, MethodCallHandle
 
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
-    if (call.method.equals("ethCreateWallet")) {
-
-
-
+    if (call.method.equals("ethGetWalletPrivateKey")) {
       result.success("");
     } else {
       result.notImplemented();
