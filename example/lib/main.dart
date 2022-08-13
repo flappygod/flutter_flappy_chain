@@ -33,13 +33,17 @@ class _MyAppState extends State<MyApp> {
       //助记词
       List<String>? data = await FlutterFlappyChain.ethCreateAideMemory(256);
       print(data!.join(" ").toString());
+
+      data="toward lecture miss crowd begin cup post razor remain object story spring secret private addict wisdom draw pumpkin order "
+          "mixed glimpse volume all talk".split(" ");
+
       //助记词转成私钥
       //波场币
-      //"m/44'/195'/0'/0"
+      //"m/44'/195'/0'/0/0"
       //以太坊
       //"m/44'/60'/0'/0/0"
       //私钥计算
-      String? privateKey = await FlutterFlappyChain.ethCreateWalletByAide(data, "m/44'/195'/0'/0");
+      String? privateKey = await FlutterFlappyChain.ethCreateWalletByAide(data, "m/44'/195'/0'/0/0");
       print(privateKey!);
 
       //地址计算
