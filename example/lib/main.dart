@@ -30,12 +30,19 @@ class _MyAppState extends State<MyApp> {
     // Platform messages may fail, so we use a try/catch PlatformException.
     // We also handle the message potentially returning null.
     try {
+      //助记词
       List<String>? data = await FlutterFlappyChain.ethCreateAideMemory(256);
       print(data!.join(" ").toString());
       //助记词转成私钥
-      String? privateKey = await FlutterFlappyChain.ethCreateWalletByAide(data,"m/44'/60'/0'/0/0");
+      //波场币
+      //"m/44'/195'/0'/0"
+      //以太坊
+      //"m/44'/60'/0'/0/0"
+      //私钥计算
+      String? privateKey = await FlutterFlappyChain.ethCreateWalletByAide(data, "m/44'/195'/0'/0");
       print(privateKey!);
 
+      //地址计算
       String? address = await FlutterFlappyChain.ethGetWalletAddress(privateKey);
       print(address!);
 
