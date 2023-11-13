@@ -1,8 +1,7 @@
+import 'package:flutter_flappy_chain/flutter_flappy_chain.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-import 'package:flutter/services.dart';
-import 'package:flutter_flappy_chain/flutter_flappy_chain.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,8 +15,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-
   @override
   void initState() {
     super.initState();
@@ -31,11 +28,8 @@ class _MyAppState extends State<MyApp> {
     // We also handle the message potentially returning null.
     try {
       //助记词
-      List<String>? data = await FlutterFlappyChain.ethCreateAideMemory(256);
+      List<String>? data = await FlutterFlappyChain.createAideMemory(256);
       print(data!.join(" ").toString());
-
-      data="toward lecture miss crowd begin cup post razor remain object story spring secret private addict wisdom draw pumpkin order "
-          "mixed glimpse volume all talk".split(" ");
 
       //助记词转成私钥
       //波场币
@@ -43,14 +37,19 @@ class _MyAppState extends State<MyApp> {
       //以太坊
       //"m/44'/60'/0'/0/0"
       //私钥计算
-      String? privateKey = await FlutterFlappyChain.ethCreateWalletByAide(data, "m/44'/195'/0'/0/0");
-      print(privateKey!);
 
-      //地址计算
-      String? address = await FlutterFlappyChain.ethGetWalletAddress(privateKey);
+      //0x6f8103fb82b1e60ebc143a7ba1568ef7137e4adefc7a6f8638fa80cc79f28b38
+
+      // String? privateKey = await FlutterFlappyChain.createWalletPrivateByAide(data, "m/44'/60'/0'/0/0");
+      // print(privateKey!);
+      // String? address = await FlutterFlappyChain.getEthWalletAddress(privateKey);
+      // print(address!);
+
+      String? privateKey = await FlutterFlappyChain.createWalletPrivateByAide(data, "m/44'/195'/0'/0/0");
+      print(privateKey!);
+      String? address =  FlutterFlappyChain.getTrxWalletAddress(privateKey);
       print(address!);
 
-      print(data);
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
     }
@@ -71,9 +70,6 @@ class _MyAppState extends State<MyApp> {
       home: Scaffold(
         appBar: AppBar(
           title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
         ),
       ),
     );

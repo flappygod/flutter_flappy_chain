@@ -10,11 +10,8 @@
 }
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
-  if ([@"ethGetWalletPrivateKey" isEqualToString:call.method]) {
-    result(@"");
-  } else {
+
     result(FlutterMethodNotImplemented);
-  }
 }
 
 @end
