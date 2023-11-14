@@ -1,8 +1,6 @@
 import 'package:dart_bip32_bip44/dart_bip32_bip44.dart';
-import 'package:flutter_flappy_chain/keccak256.dart';
 import 'package:wallet/wallet.dart' as wallet;
 import 'package:bip39/bip39.dart' as bip39;
-import 'package:web3dart/web3dart.dart';
 import 'package:flutter/services.dart';
 import 'dart:async';
 
@@ -28,26 +26,13 @@ class FlutterFlappyChain {
     return "0x" + key.privateKeyHex().substring(2, key.privateKeyHex().length);
   }
 
-  ///get aide wallet
-  static Future<String?> createWalletTronPrivate(List<String> aide) async {
-    //seed
-    String seed = bip39.mnemonicToSeedHex(aide.join(" "));
-
-    //create private key
-    wallet.PrivateKey privateKey = const wallet.Tron().createPrivateKey(Uint8List.fromList(seed.codeUnits));
-
-    //get private key
-    return privateKey.toString();
-  }
-
   ///get wallet address(ETH)
   static Future<String?> getEthWalletAddress(String privateKey) async {
-    //get private key
-    EthPrivateKey private = EthPrivateKey.fromHex(privateKey);
-    //address
-    EthereumAddress address = private.address;
-    //Keccak256 EIP55 address
-    return Keccak256.ethEIP55Address(address.hex);
+    wallet.PrivateKey private = wallet.PrivateKey(
+      privateKey.toLowerCase().startsWith("0x") ? BigInt.parse(privateKey) : BigInt.parse("0x$privateKey"),
+    );
+    wallet.PublicKey publicKey = const wallet.Ethereum().createPublicKey(private);
+    return const wallet.Ethereum().createAddress(publicKey);
   }
 
   ///get wallet address(TRX)
@@ -62,7 +47,7 @@ class FlutterFlappyChain {
   ///check is private key or not
   static bool isPrivateKey(String privateKey) {
     try {
-      wallet.PrivateKey private = wallet.PrivateKey(
+      wallet.PrivateKey(
         privateKey.toLowerCase().startsWith("0x") ? BigInt.parse(privateKey) : BigInt.parse("0x$privateKey"),
       );
       return true;

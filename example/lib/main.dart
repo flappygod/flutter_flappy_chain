@@ -40,15 +40,15 @@ class _MyAppState extends State<MyApp> {
 
       //0x6f8103fb82b1e60ebc143a7ba1568ef7137e4adefc7a6f8638fa80cc79f28b38
 
-      // String? privateKey = await FlutterFlappyChain.createWalletPrivateByAide(data, "m/44'/60'/0'/0/0");
-      // print(privateKey!);
-      // String? address = await FlutterFlappyChain.getEthWalletAddress(privateKey);
-      // print(address!);
-
-      String? privateKey = await FlutterFlappyChain.createWalletPrivateByAide(data, "m/44'/195'/0'/0/0");
+      String? privateKey = await FlutterFlappyChain.createWalletPrivateByAide(data, "m/44'/60'/0'/0/0");
       print(privateKey!);
-      String? address =  FlutterFlappyChain.getTrxWalletAddress(privateKey);
+      String? address = await FlutterFlappyChain.getEthWalletAddress(privateKey);
       print(address!);
+
+      // String? privateKey = await FlutterFlappyChain.createWalletPrivateByAide(data, "m/44'/195'/0'/0/0");
+      // print(privateKey!);
+      // String? address =  FlutterFlappyChain.getTrxWalletAddress(privateKey);
+      // print(address!);
 
     } on PlatformException {
       platformVersion = 'Failed to get platform version.';
