@@ -58,4 +58,16 @@ class FlutterFlappyChain {
     wallet.PublicKey publicKey = const wallet.Tron().createPublicKey(private);
     return const wallet.Tron().createAddress(publicKey);
   }
+
+  ///check is private key or not
+  static bool isPrivateKey(String privateKey) {
+    try {
+      wallet.PrivateKey private = wallet.PrivateKey(
+        privateKey.toLowerCase().startsWith("0x") ? BigInt.parse(privateKey) : BigInt.parse("0x$privateKey"),
+      );
+      return true;
+    } catch (error) {
+      return false;
+    }
+  }
 }
