@@ -8,6 +8,11 @@ class FlutterFlappyChain {
   ///channel
   static const MethodChannel _channel = MethodChannel('flutter_flappy_chain');
 
+  ///get trx balance
+  static String trxBalance(String address) {
+    return "https://api.trongrid.io/v1/accounts/$address";
+  }
+
   ///create aide
   static Future<List<String>?> createAideMemory(strength) async {
     String seed = bip39.generateMnemonic(strength: strength);
@@ -16,13 +21,9 @@ class FlutterFlappyChain {
 
   ///get aide wallet
   static Future<String?> createWalletPrivateByAide(List<String> aide, String path) async {
-    //seed
     String seed = bip39.mnemonicToSeedHex(aide.join(" "));
-    //chain
     Chain chain = Chain.seed(seed);
-    //key
     ExtendedKey key = chain.forPath(path);
-    //get private key
     return "0x" + key.privateKeyHex().substring(2, key.privateKeyHex().length);
   }
 
@@ -55,4 +56,7 @@ class FlutterFlappyChain {
       return false;
     }
   }
+
+  ///get trx balance
+  static getTrxBalance(String address) {}
 }
