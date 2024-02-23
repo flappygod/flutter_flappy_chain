@@ -1,7 +1,10 @@
 import 'package:dart_bip32_bip44/dart_bip32_bip44.dart';
 import 'package:wallet/wallet.dart' as wallet;
+import 'package:web_socket_channel/io.dart';
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:web3dart/web3dart.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart';
 import 'dart:async';
 
 class FlutterFlappyChain {
@@ -24,7 +27,7 @@ class FlutterFlappyChain {
     String seed = bip39.mnemonicToSeedHex(aide.join(" "));
     Chain chain = Chain.seed(seed);
     ExtendedKey key = chain.forPath(path);
-    return "0x" + key.privateKeyHex().substring(2, key.privateKeyHex().length);
+    return "0x${key.privateKeyHex().substring(2, key.privateKeyHex().length)}";
   }
 
   ///get wallet address(ETH)
@@ -59,4 +62,36 @@ class FlutterFlappyChain {
 
   ///get trx balance
   static getTrxBalance(String address) {}
+
+  ///get eth Balance
+  static Future<EtherAmount> getEthBalance(String address) async {
+    String rpcUrl = 'https://eth-mainnet.token.im';
+    String wsUrl = 'ws://eth-mainnet.token.im';
+    Client httpClient = Client();
+    Web3Client web3client = Web3Client(rpcUrl, httpClient, socketConnector: () {
+      return IOWebSocketChannel.connect(wsUrl).cast<String>();
+    });
+    return await web3client.getBalance(EthereumAddress.fromHex(address));
+  }
+
+  ///get eth Balance
+  static Future<dynamic> getEthTokenBalance(String contractAddress, String address) async {
+    String rpcUrl = 'https://eth-mainnet.token.im';
+    String wsUrl = 'ws://eth-mainnet.token.im';
+    Client httpClient = Client();
+    Web3Client web3client = Web3Client(rpcUrl, httpClient, socketConnector: () {
+      return IOWebSocketChannel.connect(wsUrl).cast<String>();
+    });
+    DeployedContract contract = DeployedContract(
+      ContractAbi.fromJson('CONTRACT_ABI', 'USDT'),
+      EthereumAddress.fromHex(contractAddress),
+    );
+    ContractFunction balanceFunction = contract.function('balanceOf');
+    List<dynamic> balance = await web3client.call(
+      contract: contract,
+      function: balanceFunction,
+      params: [EthereumAddress.fromHex(address)],
+    );
+    return balance.first;
+  }
 }
