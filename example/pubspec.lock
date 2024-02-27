@@ -89,14 +89,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.0"
+  decimal:
+    dependency: transitive
+    description:
+      name: decimal
+      sha256: "24a261d5d5c87e86c7651c417a5dbdf8bcd7080dd592533910e8d0505a279f21"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.3.3"
   dio:
     dependency: transitive
     description:
       name: dio
-      sha256: "797e1e341c3dd2f69f2dad42564a6feff3bfb87187d05abb93b9609e6f1645c3"
+      sha256: "49af28382aefc53562459104f64d16b9dfd1e8ef68c862d5af436cc8356ce5a8"
       url: "https://pub.dev"
     source: hosted
-    version: "5.4.0"
+    version: "5.4.1"
   eip1559:
     dependency: transitive
     description:
@@ -158,10 +166,10 @@ packages:
     dependency: transitive
     description:
       name: http
-      sha256: "759d1a329847dd0f39226c688d3e06a6b8679668e350e2891a6474f8b4bb8525"
+      sha256: "761a297c042deedc1ffbb156d6e2af13886bb305c2a343a4d972504cd67dd938"
       url: "https://pub.dev"
     source: hosted
-    version: "1.1.0"
+    version: "1.2.1"
   http_parser:
     dependency: transitive
     description:
@@ -258,6 +266,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.7.3"
+  rational:
+    dependency: transitive
+    description:
+      name: rational
+      sha256: ba58e9e18df9abde280e8b10051e4bce85091e41e8e7e411b6cde2e738d357cf
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.2.2"
   sec:
     dependency: transitive
     description:
@@ -371,10 +387,10 @@ packages:
     dependency: transitive
     description:
       name: wallet
-      sha256: "569c91c2af13a9e1119c001f9c09218eccf3f383eb8d15ba13a5b558010c1bc0"
+      sha256: "687fd89a16557649b26189e597792962f405797fc64113e8758eabc2c2605c32"
       url: "https://pub.dev"
     source: hosted
-    version: "0.0.12+1"
+    version: "0.0.13"
   web:
     dependency: transitive
     description:
