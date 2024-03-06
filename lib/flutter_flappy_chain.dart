@@ -87,7 +87,7 @@ class FlutterFlappyChain {
     dio.Response response = await dioRequest.get(urlPath);
 
     ///return data
-    if (response.data['data'] != null || response.data['data'] is List || response.data['data'].isNotEmpty) {
+    if (response.data['data'] != null && response.data['data'] is List && response.data['data'].isNotEmpty) {
       ///set data
       Decimal decimal = Decimal.fromInt(response.data['data'][0]['balance']);
       Decimal divisor = Decimal.parse('1000000');
@@ -95,7 +95,7 @@ class FlutterFlappyChain {
     }
 
     ///set trc20 data list
-    if (response.data['data'] != null || response.data['data'] is List || response.data['data'].isNotEmpty) {
+    if (response.data['data'] != null && response.data['data'] is List && response.data['data'].isNotEmpty) {
       List trc20List = response.data['data'][0]['trc20'];
       Map<String, Decimal> balanceList = {};
       for (Map item in trc20List) {
@@ -123,7 +123,7 @@ class FlutterFlappyChain {
   }
 
   ///get eth Balance
-  static Future<dynamic> getEthTokenBalance(String contractAddress, String address) async {
+  static Future<Decimal> getEthTokenBalance(String contractAddress, String address) async {
     String rpcUrl = 'https://eth-mainnet.token.im';
     String wsUrl = 'ws://eth-mainnet.token.im';
     Client httpClient = Client();
