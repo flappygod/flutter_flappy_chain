@@ -13,11 +13,11 @@ dependencies:
   dart_bip32_bip44: ^0.2.0
   wallet: ^0.0.13
   web3dart: ^2.7.2
-  web_socket_channel: ^2.4.4
+  web_socket_channel: ^2.3.0
   decimal: ^2.3.3
   bip39: ^1.0.6
   hex: ^0.2.0
-  http: ^1.2.1
+  http: ^1.2.0
   dio: ^5.4.1
 
 dev_dependencies:
