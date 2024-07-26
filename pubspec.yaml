@@ -14,7 +14,7 @@ dependencies:
   wallet: ^0.0.13
   web3dart: ^2.7.2
   web_socket_channel: ^2.3.0
-  decimal: ^2.3.3
+  decimal: ^3.0.2
   bip39: ^1.0.6
   hex: ^0.2.0
   http: ^1.2.0
